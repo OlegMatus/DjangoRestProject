@@ -1,17 +1,22 @@
-from django.db.models import Q, Max, Min, Count
+from django.db.models import Count, Max, Min, Q
+
 from rest_framework import status
-from rest_framework.response import Response
+from rest_framework.generics import GenericAPIView, ListAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.mixins import (
+    CreateModelMixin,
+    DestroyModelMixin,
+    ListModelMixin,
+    RetrieveModelMixin,
+    UpdateModelMixin,
+)
 from rest_framework.request import Request
+from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.generics import GenericAPIView, RetrieveUpdateDestroyAPIView, ListCreateAPIView
-from rest_framework.mixins import RetrieveModelMixin, ListModelMixin, CreateModelMixin, UpdateModelMixin, \
-    DestroyModelMixin
 
 #
 from apps.pizza.filter import filter_pizza
 from apps.pizza.models import PizzaModel
 from apps.pizza.serializers import PizzaSerializer
-
 
 #
 #
@@ -155,8 +160,8 @@ from apps.pizza.serializers import PizzaSerializer
 # #     return Response({'details': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
 #
 # return Response(status=status.HTTP_204_NO_CONTENT)
-class PizzaListCreateView(ListCreateAPIView):
-    queryset = PizzaModel.objects.all()
+class PizzaListCreateView(ListAPIView):
+    # queryset = PizzaModel.objects.all()
     serializer_class = PizzaSerializer
 
     def get_queryset(self):
