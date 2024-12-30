@@ -6,7 +6,21 @@ from apps.pizza.models import PizzaModel
 class PizzaSerializer(serializers.ModelSerializer):
     class Meta:
         model = PizzaModel
-        fields = ('id', 'name', 'price', 'size', 'created_at', 'updated_at')
+        fields = ('id', 'name', 'price', 'size', 'day', 'created_at', 'updated_at')
+
+        def validate_price(self, price):
+            if price <= 0:
+                raise serializers.ValidationError('Price must be greater than 0')
+            return price
+
+        def validate(self, attrs):
+            price = attrs.get('price')
+            size = attrs.get('size')
+
+            if price == size:
+                raise serializers.ValidationError('Price cannot be equal to size')
+
+            return attrs
         # fields = '__all__'
 # class PizzaSerializer(serializers.Serializer):
 # id = serializers.IntegerField(read_only=True)

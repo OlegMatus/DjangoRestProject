@@ -1,7 +1,7 @@
 from django.db.models import Count, Max, Min, Q
 
 from rest_framework import status
-from rest_framework.generics import GenericAPIView, ListAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import GenericAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.mixins import (
     CreateModelMixin,
     DestroyModelMixin,
@@ -14,7 +14,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 #
-from apps.pizza.filter import filter_pizza
+from apps.pizza.filter import PizzaFilter
 from apps.pizza.models import PizzaModel
 from apps.pizza.serializers import PizzaSerializer
 
@@ -160,13 +160,15 @@ from apps.pizza.serializers import PizzaSerializer
 # #     return Response({'details': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
 #
 # return Response(status=status.HTTP_204_NO_CONTENT)
-class PizzaListCreateView(ListAPIView):
-    # queryset = PizzaModel.objects.all()
+class PizzaListCreateView(ListCreateAPIView):
     serializer_class = PizzaSerializer
+    queryset = PizzaModel.objects.all()
+    # pagination_class = None # можна відключати пагінацію для кожної views якщо не потрібно
+    filterset_class = PizzaFilter
 
-    def get_queryset(self):
-        request: Request = self.request
-        return filter_pizza(request.query_params)
+    # def get_queryset(self):
+    #     request: Request = self.request
+    #     return filter_pizza(request.query_params)
 
 
 class PizzaRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):

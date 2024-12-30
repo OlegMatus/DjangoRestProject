@@ -5,4 +5,4 @@ class PizzaShopModel(models.Model):
     class Meta:
         db_table = 'pizza_shops'
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=20)
