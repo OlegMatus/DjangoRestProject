@@ -1,6 +1,7 @@
 from django.core import validators as V
 from django.db import models
 
+from apps.pizza.managers import PizzaManager
 from apps.pizza_shop.models import PizzaShopModel
 from core.enums.regex_enum import RegexEnum
 
@@ -25,3 +26,5 @@ class PizzaModel(BaseModel):
     size = models.CharField(max_length=20) # (null=True) в крайньому випадку, зазвичай вказується для Foreign Key, коли потрібно зберегти дані, а foreign key вже немає
     day = models.CharField(max_length=9, choices=DaysChoices.choices)
     pizza_shop = models.ForeignKey(PizzaShopModel, on_delete=models.CASCADE, related_name='pizzas')
+
+    objects = PizzaManager()
