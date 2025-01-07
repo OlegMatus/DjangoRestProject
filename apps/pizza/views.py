@@ -18,12 +18,15 @@ from apps.pizza.filter import PizzaFilter
 from apps.pizza.models import PizzaModel
 from apps.pizza.serializers import PizzaSerializer
 
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, IsAdminUser, AllowAny
+
 
 class PizzaListCreateView(ListAPIView):
     serializer_class = PizzaSerializer
     queryset = PizzaModel.objects.only_margaryta()
     # pagination_class = None # можна відключати пагінацію для кожної views якщо не потрібно
-    filterset_class = PizzaFilter
+    # filterset_class = PizzaFilter
+    # permission_classes = [IsAuthenticated]
 
     # def get_queryset(self):
     #     request: Request = self.request
