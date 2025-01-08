@@ -6,10 +6,9 @@ authors = ["OlegMatus <129312840+OlegMatus@users.noreply.github.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.13"
+python = "^3.12"
 djangorestframework = "^3.15.2"
 mysqlclient = "^2.2.6"
-django-dotenv = "^1.4.2"
 django-filter = "^24.3"
 djangorestframework-simplejwt = "^5.3.1"
 
